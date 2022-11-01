@@ -12,8 +12,8 @@ namespace HelloWorld
         public static void Main()
         {
 
-            var ScreenHeight = 480;
-            var ScreenWidth = 800;
+            var ScreenHeight = 800;
+            var ScreenWidth = 600;
             var BallPosition = new Vector2(ScreenHeight / 2, ScreenWidth / 2);
             var BallMovementSpeed = 1;
             float BallRadius = 50;
@@ -24,9 +24,9 @@ namespace HelloWorld
             while (!Raylib.WindowShouldClose())
             {
                 Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.WHITE);
+                Raylib.ClearBackground(Color.BLACK);
 
-                Raylib.DrawText("Move the ball with the arrow keys!", 12, 12, 20, Color.BLACK);
+                Raylib.DrawText("Move the ball with the arrow keys!", 12, 12, 20, Color.WHITE);
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) {
                     BallPosition.X += BallMovementSpeed;
