@@ -1,6 +1,6 @@
 class ObjectSize{
 
-    public int ObjectSize(){
+    public int Size(){
         var sizeMod = 0;
         return sizeMod;
     }
