@@ -1,9 +1,10 @@
 class Player{
     
-    public string player(){
-        
-        var PlayerID = "#";
-        
-        return PlayerID;
+    public string player(string input){
+        var ReturnVal = "";
+        if (input == "PlayerID") {
+            ReturnVal = "#";
+        }
+        return ReturnVal;
     }
 }

@@ -14,40 +14,41 @@ namespace HelloWorld
 
             var ScreenHeight = 480;
             var ScreenWidth = 800;
-            var RectangleSize = 50;
-
-            var PlayerRectangle = new Rectangle(ScreenWidth - (RectangleSize * 2), ScreenHeight - (RectangleSize * 2), RectangleSize, RectangleSize);
-            
-            Score score = new Score();
-            
             var ScreenScore = 0;
             var MovementSpeed = 4;
+            var positionX = 700;
+            var positionY = 420;
+            
+            Score score = new Score();
+            Player player = new Player();
+            var PlayerText = Player.player("PlayerID");
+
 
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "Greed");
             Raylib.SetTargetFPS(60);
+
 
             while (!Raylib.WindowShouldClose())
             {
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
-                ScreenScore = Score.score(ScreenScore, 0);
                 
-                Raylib.DrawText($"Score: {score}", 12, 12, 20, Color.BLACK);
+                Raylib.DrawText($"Score: {ScreenScore}", 12, 12, 20, Color.WHITE);
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) {
-                    PlayerRectangle.x += MovementSpeed;
+                    positionX += MovementSpeed;
                 }
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT)) {
-                    PlayerRectangle.x -= MovementSpeed;
+                    positionX -= MovementSpeed;
                 }
-
-                Raylib.DrawRectangleRec(PlayerRectangle, Color.RED);
-
+                
+                Raylib.DrawText($"{PlayerText}", positionX, positionY, 20, Color.WHITE);
+/*
                 if (Raylib.CheckCollisionRecs(PlayerRectangle, TargetRectangle)) {
                     Raylib.DrawText("You did it!!!!", 12, 34, 20, Color.BLACK);
                 }
-
+*/
                 Raylib.EndDrawing();
             }
 
