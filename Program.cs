@@ -11,7 +11,7 @@ namespace HelloWorld
     {
         public static void Main()
         {
-
+            // Game Formatting
             var ScreenHeight = 480;
             var ScreenWidth = 800;
             var ScreenScore = 0;
@@ -19,15 +19,16 @@ namespace HelloWorld
             var positionX = 700;
             var positionY = 420;
             
+            //Class Calls
             Score score = new Score();
             Player player = new Player();
             var PlayerText = player("PlayerID");
 
-
+            //Furthur Formating for window
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "Greed");
             Raylib.SetTargetFPS(60);
 
-
+            //Actual code
             while (!Raylib.WindowShouldClose())
             {
                 Raylib.BeginDrawing();
