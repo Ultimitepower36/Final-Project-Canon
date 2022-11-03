@@ -21,7 +21,7 @@ namespace HelloWorld
             
             Score score = new Score();
             Player player = new Player();
-            var PlayerText = Player.player("PlayerID");
+            var PlayerText = player("PlayerID");
 
 
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "Greed");
