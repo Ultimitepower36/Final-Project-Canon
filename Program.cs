@@ -18,23 +18,32 @@ namespace HelloWorld
             var MovementSpeed = 4;
             var positionX = 700;
             var positionY = 420;
-            
+            var Random = new Random();
+
             //Class Calls
             Score score = new Score();
             Player player = new Player();
-            var PlayerText = player("PlayerID");
+            Gems Gems = new Gems();
+            Rocks Rocks = new Rocks();
+
+            var PlayerText = player.player("PlayerID");
 
             //Furthur Formating for window
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "Greed");
             Raylib.SetTargetFPS(60);
+            var whichType = Random.Next(3);
 
             //Actual code
             while (!Raylib.WindowShouldClose())
             {
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
-                
                 Raylib.DrawText($"Score: {ScreenScore}", 12, 12, 20, Color.WHITE);
+
+                // Gem Creation
+                Gems.GemsCreation();
+                Rocks.RockCreation();
+                
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) {
                     positionX += MovementSpeed;

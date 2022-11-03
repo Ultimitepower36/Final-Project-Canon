@@ -1,8 +1,22 @@
 using Raylib_cs;
 using System.Numerics;
 
-class ObjectsMovement : GenColor{
-    public Vector2 speed(string user){
+class ObjectsMovement{
+
+    public Vector2 Position { get; set; } = new Vector2(0, 0);
+    public Vector2 Velocity { get; set; } = new Vector2(0, 0);
+    virtual public void Draw() {
+        // Base game objects do not have anything to draw
+    }
+    public void Move() {
+        Vector2 NewPosition = Position;
+        NewPosition.X += Velocity.X;
+        NewPosition.Y += Velocity.Y;
+        Position = NewPosition;
+    }
+}
+/*
+public void speed(string user){
         var Random = new Random();
 
         // Generate a random velocity for this object
@@ -12,18 +26,5 @@ class ObjectsMovement : GenColor{
 
         // Each object will start about the center of the screen
         var position = new Vector2(randomX, 0);
-        return position;
     }
-    
-    
-    public int Size { get; set; }
-
-    public ObjectsMovement(Color color, int size): base(color) {
-        Size = size;
-    }
-
-    override public void Draw() {
-        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, Size, Size, Color);
-    }
-}
-
+    */
