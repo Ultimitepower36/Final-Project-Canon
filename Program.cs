@@ -23,8 +23,6 @@ namespace HelloWorld
             //Class Calls
             Score score = new Score();
             Player player = new Player();
-            Gems Gems = new Gems();
-            Rocks Rocks = new Rocks();
 
             var PlayerText = player.player("PlayerID");
 
@@ -32,7 +30,8 @@ namespace HelloWorld
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "Greed");
             Raylib.SetTargetFPS(60);
             var whichType = Random.Next(3);
-
+            var Objects = new List<Gems>();
+            var Objects2 = new List<Rocks>();
             //Actual code
             while (!Raylib.WindowShouldClose())
             {
@@ -40,10 +39,28 @@ namespace HelloWorld
                 Raylib.ClearBackground(Color.BLACK);
                 Raylib.DrawText($"Score: {ScreenScore}", 12, 12, 20, Color.WHITE);
 
-                // Gem Creation
-                Gems.GemsCreation();
-                Rocks.RockCreation();
+                // Gem and rock creation 
+                // Generate a random velocity for this object
+                var randomY = Random.Next(-3, -1);
+                // Generate a placement for the object
+                var randomX = Random.Next(5, 795);
+                var square = new Gems(Color.GREEN, 20);
+                square.Position = new Vector2(randomX);
+                square.Velocity = new Vector2(randomY);
+                Objects.Add(square);
+
                 
+
+                // Generate a random velocity for this object
+                var randomY2 = Random.Next(-3, -1);
+                // Generate a placement for the object
+                var randomX2 = Random.Next(5, 795);
+
+
+                var square2 = new Rocks(Color.GRAY, 30);
+                square.Position = new Vector2(randomX2);
+                square.Velocity = new Vector2(randomY2);
+                Objects2.Add(square2);
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) {
                     positionX += MovementSpeed;
