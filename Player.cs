@@ -1,13 +1,15 @@
-class Player{
-    
-    public string player(string input){
-        // variable decloration
-        var ReturnVal = "";
+using Raylib_cs;
+using System.Numerics;
 
-        // sets the player to look like a #
-        if (input == "PlayerID") {
-            ReturnVal = "#";
-        }
-        return ReturnVal;
+class Player: ObjectSize{
+    
+    public Player() : base(Color.WHITE,10) {
+
+    }
+
+    public override void Draw()
+    {
+        Raylib.DrawText("#", (int)this.Position.X, (int)this.Position.Y, 20, this.Color);
+
     }
 }

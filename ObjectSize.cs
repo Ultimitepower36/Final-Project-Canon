@@ -7,6 +7,12 @@ class ObjectSize: GenColor{
         Size = size;
     }
 
+    public Rectangle Rectangle {
+        get {
+            return new Rectangle(this.Position.X, this.Position.Y, this.Size, this.Size);
+        }
+    }
+
     override public void Draw() {
         Raylib.DrawRectangle((int)Position.X, (int)Position.Y, Size, Size, Color);
     }
