@@ -110,3 +110,9 @@ namespace HelloWorld
         }
     }
 }
+//Add game over class?
+//make sure polymorphism is utilized for health packs.
+//Use different classes for each
+// Make missle class (laser?)
+//make sure collision works properly.
+// Enemy = +10 points, Health = +5 points, starting health = 5, starting score = 0?100?

@@ -8,3 +8,4 @@ class Score{
         return currentscore;
     }
 }
+//Health similar?
