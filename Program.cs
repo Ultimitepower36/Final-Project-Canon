@@ -35,6 +35,7 @@ namespace HelloWorld
             var whichType = Random.Next(3);
             var Objects = new List<ObjectsMovement>();
             var Count = 0;
+            var Count2 = 0;
             Objects.Add(player);
 
 
@@ -49,8 +50,8 @@ namespace HelloWorld
 
                 // Health and Enemy creation 
                 Count +=1;
-                
-                if (Count == 600){
+                Count2 +=1;
+                if (Count == 60 && Count2 == 240){
                     // Generate a random velocity for this object
                     var randomY = Random.Next(1, 3);
 
@@ -76,6 +77,7 @@ namespace HelloWorld
                     square.Position = new Vector2(randomX, randomY);
                     square.Velocity = new Vector2(0, randomSpeed);
                     Objects.Add(square);
+                    Count2 = 0;
                 }
                 
             
