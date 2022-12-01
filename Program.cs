@@ -15,7 +15,6 @@ namespace HelloWorld
             var ScreenHeight = 480;
             var ScreenWidth = 800;
             var ScreenScore = 0;
-            var Health = 5;
             var MovementSpeed = 4;
             var positionX = 400;
             var positionY = 420;
@@ -24,6 +23,9 @@ namespace HelloWorld
 
             //Class Calls
             Score score = new Score();
+            Health Health = new Health();
+            var change = 0;
+            var Healthvalue = Health.Healthchange(change);
 
             Player player = new Player();
             player.Position = new Vector2 (positionX, positionY);
@@ -46,7 +48,7 @@ namespace HelloWorld
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
                 Raylib.DrawText($"Score: {ScreenScore}", 12, 12, 20, Color.WHITE);
-                Raylib.DrawText($"Health: {Health}", 12, 24, 20, Color.WHITE);
+                Raylib.DrawText($"Health: {Healthvalue}", 12, 36, 20, Color.WHITE);
 
                 // Health and Enemy creation 
                 Count +=1;
@@ -58,7 +60,7 @@ namespace HelloWorld
                     // Generate a placement for the object
                     var randomX = Random.Next(5, 795);
 
-                    var randomSpeed = Random.Next(1, 3);
+                    var randomSpeed = Random.Next(1, 4);
                     var colour = Color.BLACK;
                     var num = 0;
                     if (randomSpeed == 1){
@@ -69,7 +71,7 @@ namespace HelloWorld
                         colour = Color.BLUE;
                         num = 2;
                     }
-                    else{
+                    else if(randomSpeed == 3){
                         colour = Color.PURPLE;
                         num = 3;
                     }
@@ -113,14 +115,16 @@ namespace HelloWorld
 
                 // Move all of the objects to their next location
                 foreach (var obj in Objects) {
-                    if ((obj is Gems) || (obj is Rocks)){
+                    if ((obj is Healthpack) || (obj is Rocks)){
                         if (Raylib.CheckCollisionRecs(player.Rectangle, ((ObjectSize)obj).Rectangle)) {
                             Remove.Add(obj);
-                            if (obj is Gems){
-                                ScreenScore = score.score(ScreenScore, 1);
+                            if (obj is Healthpack){
+                                change += 1;
+                                Healthvalue = Health.Healthchange(change);
                             }
                             else{
-                                ScreenScore = score.score(ScreenScore, -1);
+                                change -= 1;
+                                Healthvalue = Health.Healthchange(change);
                             }
                         }
                     }
