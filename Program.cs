@@ -14,16 +14,21 @@ namespace HelloWorld
             // Game Formatting
             var ScreenHeight = 480;
             var ScreenWidth = 800;
-            var ScreenScore = 10;
+            var ScreenScore = 0;
+            var Health = 5;
             var MovementSpeed = 4;
             var positionX = 400;
             var positionY = 420;
             var Random = new Random();
 
+
             //Class Calls
             Score score = new Score();
+
             Player player = new Player();
             player.Position = new Vector2 (positionX, positionY);
+
+
             //Furthur Formating for window
             Raylib.InitWindow(ScreenWidth, ScreenHeight, "Greed");
             Raylib.SetTargetFPS(60);
@@ -31,27 +36,48 @@ namespace HelloWorld
             var Objects = new List<ObjectsMovement>();
             var Count = 0;
             Objects.Add(player);
+
+
             //Actual code
             while (!Raylib.WindowShouldClose())
             {
+                //setup of screen
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
                 Raylib.DrawText($"Score: {ScreenScore}", 12, 12, 20, Color.WHITE);
+                Raylib.DrawText($"Health: {Health}", 12, 24, 20, Color.WHITE);
 
-                // Gem and rock creation 
+                // Health and Enemy creation 
                 Count +=1;
-                if (Count == 60){
+                
+                if (Count == 600){
                     // Generate a random velocity for this object
                     var randomY = Random.Next(1, 3);
+
                     // Generate a placement for the object
                     var randomX = Random.Next(5, 795);
+
                     var randomSpeed = Random.Next(1, 3);
-                    var square = new Gems(Color.GREEN, 20);
+                    var colour = Color.BLACK;
+                    var num = 0;
+                    if (randomSpeed == 1){
+                        colour = Color.GREEN;
+                        num = 1;
+                        }
+                    else if(randomSpeed == 2){
+                        colour = Color.BLUE;
+                        num = 2;
+                    }
+                    else{
+                        colour = Color.PURPLE;
+                        num = 3;
+                    }
+                    var square = new Healthpack(colour, 20, num);
                     square.Position = new Vector2(randomX, randomY);
                     square.Velocity = new Vector2(0, randomSpeed);
                     Objects.Add(square);
                 }
-
+                
             
                 if (Count == 60){
                     // Generate a random velocity for this object
