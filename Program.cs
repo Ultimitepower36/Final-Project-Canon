@@ -117,7 +117,7 @@ namespace HelloWorld
                     bullet.Position = new Vector2(player.Position.X, player.Position.Y);
                     bullet.Velocity = new Vector2(0, -2);
                     Bullets.Add(bullet);
-                    Cooldown = 60;
+                    Cooldown = 30;
                 }
                 
                 var Remove = new List<ObjectsMovement>();
