@@ -7,4 +7,3 @@ class Rocks: ObjectSize{
 
     
 }
-//Reformat to Enemy Ships

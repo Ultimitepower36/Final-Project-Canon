@@ -36,6 +36,7 @@ namespace HelloWorld
             Raylib.SetTargetFPS(60);
             var whichType = Random.Next(3);
             var Objects = new List<ObjectsMovement>();
+            var Bullets = new List<ObjectsMovement>();
             var Count = 0;
             var Count2 = 0;
             Objects.Add(player);
@@ -103,6 +104,13 @@ namespace HelloWorld
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT)) {
                     player.Position = new Vector2 (player.Position.X - MovementSpeed, player.Position.Y);
                 }
+
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) {
+                    var bullet = new Bullets(Color.WHITE, 10);
+                    bullet.Position = new Vector2(player.Position.X, player.Position.Y);
+                    bullet.Velocity = new Vector2(0, -4);
+                    Bullets.Add(bullet);
+                }
                 
                 var Remove = new List<ObjectsMovement>();
 
@@ -116,20 +124,33 @@ namespace HelloWorld
                 // Move all of the objects to their next location
                 foreach (var obj in Objects) {
                     if ((obj is Healthpack) || (obj is Rocks)){
-                        if (Raylib.CheckCollisionRecs(player.Rectangle, ((ObjectSize)obj).Rectangle)) {
+                        if (Raylib.CheckCollisionRecs(player.Rectangle(), ((ObjectSize)obj).Rectangle())) {
                             Remove.Add(obj);
                             if (obj is Healthpack){
-                                change += 1;
+                                //changing the health increase based on pack
+                                var hp = (Healthpack)obj;
+                                change += hp.Value;
                                 Healthvalue = Health.Healthchange(change);
                             }
                             else{
+                                //enemy colission
                                 change -= 1;
                                 Healthvalue = Health.Healthchange(change);
                             }
                         }
+                        foreach (var bullet in Bullets) {
+                        if (Raylib.CheckCollisionRecs(((ObjectSize)bullet).Rectangle(), ((ObjectSize)obj).Rectangle())) {
+                            Remove.Add(obj);
+                            Remove.Add(bullet);
+                            if (obj is Rocks){
+                                //changing the health increase based on pack
+                                ScreenScore = score.score(ScreenScore, 10);
+                            }
+                        }
+                        }
                     }
                     obj.Move();
-                    if (obj.Position.Y > ScreenHeight){
+                    if ((obj.Position.Y > ScreenHeight) || (obj.Position.Y < (ScreenHeight + 10))){
                         Remove.Add(obj);
                     }
                 }
