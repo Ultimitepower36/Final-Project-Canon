@@ -54,6 +54,8 @@ namespace HelloWorld
                 // Health and Enemy creation 
                 Count +=1;
                 Count2 +=1;
+
+                //Healthpack creation
                 if (Count == 60 && Count2 == 240){
                     // Generate a random velocity for this object
                     var randomY = Random.Next(1, 3);
@@ -83,7 +85,7 @@ namespace HelloWorld
                     Count2 = 0;
                 }
                 
-            
+                //enemy creation
                 if (Count == 60){
                     // Generate a random velocity for this object
                     var randomY2 = Random.Next(1, 3);
@@ -97,6 +99,7 @@ namespace HelloWorld
                     Count = 0;
                 }
 
+                //player controls
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) {
                     player.Position = new Vector2 (player.Position.X + MovementSpeed, player.Position.Y);
                 }
@@ -106,7 +109,7 @@ namespace HelloWorld
                 }
 
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) {
-                    var bullet = new Bullets(Color.WHITE, 10);
+                    var bullet = new Bullets(Color.YELLOW, 20);
                     bullet.Position = new Vector2(player.Position.X, player.Position.Y);
                     bullet.Velocity = new Vector2(0, -4);
                     Bullets.Add(bullet);
@@ -117,6 +120,9 @@ namespace HelloWorld
                 // Draw all of the objects in their current location
                 foreach (var obj in Objects) {
                     obj.Draw();
+                }
+                foreach (var bullet in Bullets) {
+                    bullet.Draw();
                 }
 
                 Raylib.EndDrawing();
@@ -136,21 +142,25 @@ namespace HelloWorld
                                 //enemy colission
                                 change -= 1;
                                 Healthvalue = Health.Healthchange(change);
+                                if (Healthvalue <= 0){
+                                    Raylib.CloseWindow();
+                                }
                             }
                         }
-                        foreach (var bullet in Bullets) {
-                        if (Raylib.CheckCollisionRecs(((ObjectSize)bullet).Rectangle(), ((ObjectSize)obj).Rectangle())) {
-                            Remove.Add(obj);
-                            Remove.Add(bullet);
-                            if (obj is Rocks){
-                                //changing the health increase based on pack
-                                ScreenScore = score.score(ScreenScore, 10);
+                        if (obj is Rocks){
+                            foreach (var bullet in Bullets) {
+                                if (Raylib.CheckCollisionRecs(((ObjectSize)bullet).Rectangle(), ((ObjectSize)obj).Rectangle())) {
+                                    Remove.Add(obj);
+                                    Remove.Add(bullet);
+                                    if (obj is Rocks){
+                                        ScreenScore = score.score(ScreenScore, 10);
+                                    }
+                                }
                             }
-                        }
                         }
                     }
                     obj.Move();
-                    if ((obj.Position.Y > ScreenHeight) || (obj.Position.Y < (ScreenHeight + 10))){
+                    if ((obj.Position.Y > ScreenHeight) || (obj.Position.Y < (-10))){
                         Remove.Add(obj);
                     }
                 }
@@ -163,9 +173,3 @@ namespace HelloWorld
         }
     }
 }
-//Add game over class?
-//make sure polymorphism is utilized for health packs.
-//Use different classes for each
-// Make missle class (laser?)
-//make sure collision works properly.
-// Enemy = +10 points, Health = +5 points, starting health = 5, starting score = 0?100?

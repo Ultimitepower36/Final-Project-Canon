@@ -5,7 +5,7 @@ class Bullets: ObjectSize{
 
     }
     public override Rectangle Rectangle(){
-            return new Rectangle(this.Position.X, this.Position.Y, this.Size/3, this.Size);
+            return new Rectangle(this.Position.X, this.Position.Y, (this.Size/2), this.Size);
     }
     
 }
