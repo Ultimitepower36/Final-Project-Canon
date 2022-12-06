@@ -39,6 +39,7 @@ namespace HelloWorld
             var Bullets = new List<ObjectsMovement>();
             var Count = 0;
             var Count2 = 0;
+            var Cooldown = 30;
             Objects.Add(player);
 
 
@@ -54,6 +55,9 @@ namespace HelloWorld
                 // Health and Enemy creation 
                 Count +=1;
                 Count2 +=1;
+                if (Cooldown>0){
+                    Cooldown -= 1;
+                }
 
                 //Healthpack creation
                 if (Count == 60 && Count2 == 240){
@@ -108,11 +112,12 @@ namespace HelloWorld
                     player.Position = new Vector2 (player.Position.X - MovementSpeed, player.Position.Y);
                 }
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) {
+                if ((Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) && (Cooldown == 0)) {
                     var bullet = new Bullets(Color.YELLOW, 20);
                     bullet.Position = new Vector2(player.Position.X, player.Position.Y);
-                    bullet.Velocity = new Vector2(0, -4);
+                    bullet.Velocity = new Vector2(0, -2);
                     Bullets.Add(bullet);
+                    Cooldown = 60;
                 }
                 
                 var Remove = new List<ObjectsMovement>();
@@ -160,12 +165,19 @@ namespace HelloWorld
                         }
                     }
                     obj.Move();
-                    if ((obj.Position.Y > ScreenHeight) || (obj.Position.Y < (-10))){
+                    if ((obj.Position.Y > ScreenHeight)){
                         Remove.Add(obj);
+                    }
+                    foreach (var bullet in Bullets) {
+                        bullet.Move();
+                        if ((bullet).Position.Y < (-10)){
+                            Remove.Add(bullet);
+                        }
                     }
                 }
                 foreach (var obj in Remove) {
                     Objects.Remove(obj);
+                    Bullets.Remove(obj);
                 }
             }
 
